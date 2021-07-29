@@ -1,0 +1,31 @@
+<div class="columns">
+    <form id="loginForm" name="loginForm" class="box column is-6 is-offset-3" onsubmit="return validateLogin();">
+        <div class="field">
+            <div class="control is-expanded has-icons-left">
+                <input class="input is-danger" name="email" type="email" placeholder="Email">
+                <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i>
+                </span>
+            </div>
+            <p class="help is-danger">This email is invalid</p>
+        </div>
+
+        <div class="field">
+            <div class="control is-expanded has-icons-left">
+                <input class="input is-danger" name="password" type="password" placeholder="Password">
+                <span class="icon is-small is-left">
+                    <i class="fa fa-key"></i>
+                </span>
+            </div>
+        </div>
+        
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-link">Login</button>
+            </div>
+            <div class="control">
+                <a class="button is-link is-light" href="#register">Register</a>
+            </div>
+        </div>
+    </form>
+</div>

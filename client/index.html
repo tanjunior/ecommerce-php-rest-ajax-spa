@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Assignment 2</title>
+		<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+		<!-- Bulma Version 0.9.0-->
+		<link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	</head>
+	<body>
+		<nav class="navbar is-white topNav">
+			<div class="container">
+				<div class="navbar-brand">
+					<a class="navbar-item" href="#home">
+						<img src="images/bulma.png" width="112" height="28">
+					</a>
+					<div class="navbar-burger burger" data-target="topNav">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div id="topNav" class="navbar-menu">
+					<div class="navbar-start">
+						<a class="navbar-item" href="#products">Products</a>
+						<a class="navbar-item" href="#about">About</a>
+						<a class="navbar-item" href="#support">Support</a>
+						<a class="navbar-item" href="#cart">Cart</a>
+						<div class="navbar-item">
+                            <form id="searchForm" name="searchForm" onsubmit="return validateSearch();">
+							    <input class="input" type="search" name="keyword" placeholder="Search">
+								<input type="submit" hidden/>
+                            </form>
+						</div>
+					</div>
+					<div class="navbar-end">
+						<div class="navbar-item">
+							<div id="btn-group" class="field is-grouped">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+        <main>
+            <section id="home" class="container">
+                front (work in progress)
+            </section>
+    
+            <section id="products" class="container"  style="display: none;">
+                <div id="productCols" class="columns">
+                </div>
+            </section>
+
+            <section id="about" class="container" style="display: none;">
+                about (work in progress)
+            </section>
+
+            <section id="support" class="container" style="display: none;">
+                support (work in progress)
+            </section>
+
+            <section id="cart" class="container"  style="display: none;">
+                <table id="cart-table" class="container">
+                </table>
+            </section>
+            
+            <section id="search" class="container"  style="display: none;">
+                <table>
+                    <tbody id="searchResults">
+                    </tbody>
+                </table>
+            </section>
+            
+            <section id="register" class="container" style="display: none;">
+            </section>
+
+            <section id="login" class="container" style="display: none;">
+            </section>
+
+            <section id="profile" class="container" style="display: none;">
+                <div id="profileCols" class="columns is-multiline is-vcentered"></div>
+				
+            </section>
+
+			<section id="admin" class="container" style="display: none;">
+				<div id="adminCols" class="columns"></div>			
+			</section>
+
+            <section id="item" class="container"  style="display: none;">
+                <div id="itemCols" class="columns"></div>
+            </section>
+        </main>
+
+		<div id="modal" class="modal">
+			<div class="modal-background" onclick="hideModal()"></div>
+			<div id="modal-content" class="modal-card">
+			</div>
+		</div>
+
+        <footer class="footer">
+			<div class="container">
+				<div class="content has-text-centered">
+					<div class="columns is-mobile is-centered">
+						<div class="field is-grouped is-grouped-multiline">
+							<div class="control">
+								<div class="tags has-addons">
+									<a class="tag is-link" href="http://ceto.murdoch.edu.au/~34309148/">TAN JING REN</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script type="text/javascript" src="js/api_request.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/item.js"></script>
+		<script type="text/javascript" src="js/user.js"></script>
+		<script type="text/javascript" src="js/order.js"></script>
+		<script type="text/javascript" src="js/admin.js"></script>
+        <script type="text/javascript" src="js/routing.js"></script>
+	</body>
+</html>
