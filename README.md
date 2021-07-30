@@ -1,2 +1,2 @@
-# ecommerce-php-rest-ajax
+# ecommerce-php-rest-ajax-spa
  
