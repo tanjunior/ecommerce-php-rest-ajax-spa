@@ -1,4 +1,5 @@
 async function generateProfile(id) {
+    $("#profileCols").html("")
     let user = await getUser({"id": id})
     if (user.success) {
         if (user.data[0].role == "staff") {
@@ -64,7 +65,7 @@ async function validateRegister(e) {
     } else if (data.password != data.password2) {
         alert("password not match")
         return
-    } // TODO: check if email exist
+    }
 
     let response = await apiRequest("POST", "user/registerNoPasswordEncryption.php", 'application/json;charset=utf-8', JSON.stringify(data))
     if (response.success) {

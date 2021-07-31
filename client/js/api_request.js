@@ -23,6 +23,7 @@ async function getAllItems() {
     return response
 }
 
+// used fetch instead of xhr to take advantage of promise.
 async function apiRequest(requestType, params, contentType, toSend) {
     try {
         let options = { 

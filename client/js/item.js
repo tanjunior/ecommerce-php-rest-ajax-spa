@@ -21,7 +21,7 @@ async function generateItemPage(itemid) {
             "<p class='title is-1'>"+item.data[0].name+"</p>"+
             "<p class='subtitle is-3'>$"+item.data[0].price+"</p>"+
             "<div class='content'><blockquote>"+item.data[0].description+"</blockquote></div>"+
-            "<button class='button is-large is-fullwidth' data-id='" +itemid+ "' onclick='addItemToCart("+itemid+ ");'>Add to cart</button>"+
+            "<button class='button is-large is-fullwidth is-primary' data-id='" +itemid+ "' onclick='addItemToCart("+itemid+ ");'>Add to cart</button>"+
         "</div></div></div>"
     )
     window.location.hash = "item";

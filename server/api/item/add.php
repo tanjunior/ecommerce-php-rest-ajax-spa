@@ -55,8 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die();
     }
 
-
+    // save file to server
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+
+        // Add item to db if successfully saved
         if ($item->newItem()) {
     
             http_response_code(201);

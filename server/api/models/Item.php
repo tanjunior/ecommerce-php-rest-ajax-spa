@@ -66,8 +66,6 @@ class Item{
         $description = htmlspecialchars(strip_tags($this->description));
         $price = htmlspecialchars(strip_tags($this->price));
         $category = htmlspecialchars(strip_tags($this->category));
-        $color = "white";
-        $capacity = 1;
         $imageName = htmlspecialchars(strip_tags($this->imageName));
 
         $statement->bindParam(':name', $name);

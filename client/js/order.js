@@ -61,7 +61,7 @@ function populateCartDetails() {
                 "<td class='column is-3'>"+item.name+ "</td>"+
                 "<td class='column is-3 cart-item-price' data-id='"+item.price+"'>" +data[item.id]*item.price+ "</td>"+
                 "<td class='column is-3'><input class='input is-small' type='number' min='1' value='" +data[item.id]+ "' data-id='" +item.id+ "'</input></td>"+
-                "<td class='column is-1'><button class='button is-small'>X</button></td></tr>"
+                "<td class='column is-1'><button class='button is-small is-danger'>X</button></td></tr>"
                 
             });
             $("#cartItems").html(html)

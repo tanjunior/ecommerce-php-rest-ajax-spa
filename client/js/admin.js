@@ -62,6 +62,8 @@ function displayAdminPage() {
     "</div>"
     )
 
+
+    // event listners get created after AJAX DOM was loaded in 
     const fileInput = document.querySelector('#imageInput input[type=file]');
     fileInput.onchange = () => {
         if (fileInput.files.length > 0) {
@@ -70,7 +72,6 @@ function displayAdminPage() {
         }
     }
 
-    const ordersList = document.querySelector('#orders-list');
     document.querySelector('#order-search').addEventListener("input", async function(e) {
         let type = $("input[type='radio'][name='order']:checked").val();
         let value = e.target.value
@@ -97,7 +98,7 @@ function displayAdminPage() {
         
     })
 
-    const usersList = document.querySelector('#users-list');
+
     document.querySelector('#user-search').addEventListener("input", async function(e) {
         let type = $("input[type='radio'][name='user']:checked").val();
         let value = e.target.value
@@ -118,7 +119,6 @@ function displayAdminPage() {
         }
     })
 
-    const itemsList = document.querySelector('#items-list');
     document.querySelector('#item-search').addEventListener("input", async function(e) {
         let type = $("input[type='radio'][name='item']:checked").val();
         let value = e.target.value
@@ -141,6 +141,8 @@ function displayAdminPage() {
         }
     })
 }
+
+
 
 async function adminOpenOrderModal(orderid) {
     let order = await getOrder({"id":orderid})
