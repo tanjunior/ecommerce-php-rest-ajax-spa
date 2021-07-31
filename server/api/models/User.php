@@ -127,7 +127,7 @@ class User{
             $this->userid=htmlspecialchars(strip_tags($this->userid));
             $stmt->bindParam(':name', $this->name);
             $stmt->bindParam(':email', $this->email);
-            $stmt->bindParam(':id', $this->userid);
+            $stmt->bindParam(':userid', $this->userid);
         } else {
             // update query
             $query = "UPDATE " . $this->table . "
@@ -170,9 +170,9 @@ class User{
         $num = $statement->rowCount();
         if ($num > 0) {
             $row = $statement->fetch(PDO::FETCH_ASSOC);
-            $hashed_password = $row["password"];
-            if (password_verify($currentPassword, $hashed_password)) {
-                $this->password = password_hash($newPassword, PASSWORD_DEFAULT);
+            $password = $row["password"];
+            if ($currentPassword == $password) {
+                $this->password = $newPassword;
                 // update query
                 $query = "UPDATE " . $this->table . "
                         SET password = :password

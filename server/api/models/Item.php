@@ -58,8 +58,6 @@ class Item{
             Description = :description,
             Price = :price,
             Category = :category,
-            Color = :color,
-            Capacity = :capacity,
             ImageName = :imageName';
 
         $statement = $this->conn->prepare($query);
@@ -76,8 +74,6 @@ class Item{
         $statement->bindParam(':description', $description);
         $statement->bindParam(':price', $price);
         $statement->bindParam(':category', $category);
-        $statement->bindParam(':color', $color);
-        $statement->bindParam(':capacity', $capacity);
         $statement->bindParam(':imageName', $imageName);
 
         if ($statement->execute()) {

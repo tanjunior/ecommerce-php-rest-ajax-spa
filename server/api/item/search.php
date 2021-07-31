@@ -31,8 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $item_arr = array(
                 'itemid'        => $ItemID,
                 'name'          => $Name,
-                'capacity'      => $Capacity,
-                'color'         => $Color,
                 'category'      => $Category,
                 'description'   => $Description,
                 'price'         => $Price,

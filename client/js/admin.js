@@ -109,8 +109,8 @@ function displayAdminPage() {
         if (users.success) {
             let html = ""
             users.data.forEach(user => {
-                html = html + "<tr><td>"+user.id + "</td><td>" + user.name + "</td><td>" +user.email+ "</td><td>" +user.role+ 
-                "</td><td>" +user.created_at+ "</td><td><button class='button is-small is-info' onclick='openUserModal("+user.id +")'>Edit</button></td></tr>"
+                html = html + "<tr><td>"+user.userid + "</td><td>" + user.name + "</td><td>" +user.email+ "</td><td>" +user.role+ 
+                "</td><td>" +user.created_at+ "</td><td><button class='button is-small is-info' onclick='openUserModal("+user.userid +")'>Edit</button></td></tr>"
             });
             $("#users-list").html(html)
         } else {

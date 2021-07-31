@@ -116,7 +116,10 @@ async function validateUserUpdate(e) {
         return
     }
 
-    req = await apiRequest("PATCH", "user/update.php", 'application/json;charset=utf-8', JSON.stringify(data))
+    req = await apiRequest("PATCH", "user/update.php/", 'application/json;charset=utf-8', JSON.stringify(data))
+    if (req.success) {
+        window.location.hash = "profile"
+    }
 }
 
 async function validateChangePassword(e) {
