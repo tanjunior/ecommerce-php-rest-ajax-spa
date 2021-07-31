@@ -13,12 +13,12 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	</head>
-	<body>
-		<nav class="navbar is-white topNav">
+	<body class="has-navbar-fixed-top">
+		<nav class="navbar is-white is-fixed-top topNav" role="navigation">
 			<div class="container">
 				<div class="navbar-brand">
 					<a class="navbar-item" href="#home">
-						<img src="images/bulma.png" width="112" height="28">
+						Cetos Produce
 					</a>
 					<div class="navbar-burger burger" data-target="topNav">
 						<span></span>
@@ -28,14 +28,39 @@
 				</div>
 				<div id="topNav" class="navbar-menu">
 					<div class="navbar-start">
-						<a class="navbar-item" href="#products">Products</a>
+						<div class="navbar-item has-dropdown is-hoverable">
+							<a class="navbar-link" href="#products">Products</a>
+							<div class="navbar-dropdown">
+							  <a class="navbar-item" onclick="generateCategory(event)">
+								Fruits
+							  </a>
+							  <a class="navbar-item" onclick="generateCategory(event)">
+								Vegetables
+							  </a>
+							  <a class="navbar-item" onclick="generateCategory(event)">
+								Mushrooms
+							  </a>
+							  <a class="navbar-item" onclick="generateCategory(event)">
+								Herbs
+							  </a>
+							  <a class="navbar-item" onclick="generateCategory(event)">
+								Legumes
+							  </a>
+							</div>
+						</div>
 						<a class="navbar-item" href="#about">About</a>
 						<a class="navbar-item" href="#support">Support</a>
 						<a class="navbar-item" href="#cart">Cart</a>
 						<div class="navbar-item">
-                            <form id="searchForm" name="searchForm" onsubmit="return validateSearch();">
-							    <input class="input" type="search" name="keyword" placeholder="Search">
-								<input type="submit" hidden/>
+                            <form id="searchForm" name="searchForm" onsubmit="validateSearch(event)">
+								<div class="field has-addons">
+									<div class="control">
+							    		<input class="input" type="search" name="keyword" placeholder="Search">
+									</div>
+									<div class="control">
+										<input class="button" type="submit"/>
+									</div>
+								</div>
                             </form>
 						</div>
 					</div>
@@ -55,13 +80,51 @@
             </section>
     
             <section id="products" class="container"  style="display: none;">
-                <div id="productCols" class="columns">
+                <div id="productCols" class="columns is-multiline is-mobile">
                 </div>
             </section>
 
-            <section id="about" class="container" style="display: none;">
-                about (work in progress)
-            </section>
+			<section id="about" class="hero is-fullheight" style="display: none;">
+				<div class="hero-body">
+					<div class="container has-text-centered">
+						<div class="columns is-8 is-variable ">
+							<div class="column is-two-thirds has-text-left">
+								<h1 class="title is-1">Contact Us</h1>
+								<p class="is-size-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla eligendi soluta
+									voluptate facere molestiae consequatur.</p>
+								<div class="social-media">
+									<a href="https://facebook.com" target="_blank" class="button is-light is-large"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+									<a href="https://instagram.com" target="_blank" class="button is-light is-large"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+									<a href="https://twitter.com" target="_blank" class="button is-light is-large"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+								</div>
+							</div>
+							<div class="column is-one-third has-text-left">
+								<div class="field">
+									<label class="label">Name</label>
+									<div class="control">
+										<input class="input is-medium" type="text">
+									</div>
+								</div>
+								<div class="field">
+									<label class="label">Email</label>
+									<div class="control">
+										<input class="input is-medium" type="text">
+									</div>
+								</div>
+								<div class="field">
+									<label class="label">Message</label>
+									<div class="control">
+										<textarea class="textarea is-medium"></textarea>
+									</div>
+								</div>
+								<div class="control">
+									<button type="submit" class="button is-link is-fullwidth has-text-weight-medium is-medium">Send Message</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 
             <section id="support" class="container" style="display: none;">
                 support (work in progress)
@@ -73,7 +136,7 @@
             </section>
             
             <section id="search" class="container"  style="display: none;">
-                <table>
+                <table class="table is-fullwidth">
                     <tbody id="searchResults">
                     </tbody>
                 </table>
@@ -86,13 +149,17 @@
             </section>
 
             <section id="profile" class="container" style="display: none;">
-                <div id="profileCols" class="columns is-multiline is-vcentered"></div>
-				
+				<div id="profileBanner"></div>
+                <div id="profileCols" class="columns is-multiline is-vcentered"></div>	
             </section>
 
 			<section id="admin" class="container" style="display: none;">
 				<div id="adminCols" class="columns"></div>			
 			</section>
+
+			<section id="category" class="container"  style="display: none;">
+                <div id="categoryCols" class="columns is-multiline is-mobile"></div>
+            </section>
 
             <section id="item" class="container"  style="display: none;">
                 <div id="itemCols" class="columns"></div>
@@ -127,5 +194,6 @@
 		<script type="text/javascript" src="js/order.js"></script>
 		<script type="text/javascript" src="js/admin.js"></script>
         <script type="text/javascript" src="js/routing.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
 	</body>
 </html>

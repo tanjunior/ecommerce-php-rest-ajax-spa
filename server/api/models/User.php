@@ -35,7 +35,7 @@ class User{
             $role = htmlspecialchars(strip_tags($this->role));
             $statement->bindParam(':role', $role);
         } else {
-            $role = 'guest';
+            $role = 'member';
             $statement->bindParam(':role', $role);
         }
         
@@ -49,10 +49,10 @@ class User{
         return false;        
     }
 
-    public function login($email) {
+    public function login() {
         $query = 'SELECT id, email, password FROM ' .$this->table.' WHERE email = :email';
         $statement = $this->conn->prepare($query);
-        $statement->bindParam(':email', $email);
+        $statement->bindParam(':email', $this->email);
 
         $statement->execute();
 
@@ -113,24 +113,43 @@ class User{
     }
 
     function update() {
-  
-        // update query
-        $query = "UPDATE " . $this->table . "
-                SET name = :name, email = :email
-                WHERE id = :id";
+        if ($this->role == null) {
+            // update query
+            $query = "UPDATE " . $this->table . "
+                    SET name = :name, email = :email
+                    WHERE id = :id";
+                    // prepare query statement
+            $stmt = $this->conn->prepare($query);
+        
+            // sanitize
+            $this->name=htmlspecialchars(strip_tags($this->name));
+            $this->email=htmlspecialchars(strip_tags($this->email));
+            $this->id=htmlspecialchars(strip_tags($this->id));
+            $stmt->bindParam(':name', $this->name);
+            $stmt->bindParam(':email', $this->email);
+            $stmt->bindParam(':id', $this->id);
+        } else {
+            // update query
+            $query = "UPDATE " . $this->table . "
+                    SET name = :name, email = :email, role = :role
+                    WHERE id = :id";
+                    // prepare query statement
+            $stmt = $this->conn->prepare($query);
+        
+            // sanitize
+            $this->name=htmlspecialchars(strip_tags($this->name));
+            $this->email=htmlspecialchars(strip_tags($this->email));
+            $this->id=htmlspecialchars(strip_tags($this->id));
+            $this->role=htmlspecialchars(strip_tags($this->role));
+        
+            // bind new values
+            $stmt->bindParam(':name', $this->name);
+            $stmt->bindParam(':email', $this->email);
+            $stmt->bindParam(':id', $this->id);
+            $stmt->bindParam(':role', $this->role);
+        }
       
-        // prepare query statement
-        $stmt = $this->conn->prepare($query);
-      
-        // sanitize
-        $this->name=htmlspecialchars(strip_tags($this->name));
-        $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->id=htmlspecialchars(strip_tags($this->id));
-      
-        // bind new values
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':id', $this->id);
+        
       
         // execute the query
         if($stmt->execute()){

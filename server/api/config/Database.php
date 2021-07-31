@@ -1,10 +1,12 @@
 <?php
 class Database {
+
     private $host       = 'localhost';
     private $username   = 'X34309148';
     private $password   = 'X34309148';
     private $db_name    = 'X34309148';
     private $conn;
+
 
     public function __construct() {
         $this->conn = null;

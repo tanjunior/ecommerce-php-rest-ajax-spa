@@ -43,6 +43,16 @@ class Order{
         return false;        
     }
 
+    public function readOne($ID) {
+        $query = 'SELECT * FROM ' .$this->table. ' WHERE orderid = ' .$ID. ';';
+
+        $statement = $this->conn->prepare($query);
+
+        $statement->execute();
+
+        return $statement;
+    }
+
     function search($type, $value) {
         $query = 'SELECT * FROM ' .$this->table. ' WHERE ' .$type. ' = ' .$value;
 
@@ -50,6 +60,32 @@ class Order{
         $statement->execute();
 
         return $statement;
+    }
+
+    function update() {
+  
+        // update query
+        $query = "UPDATE " . $this->table . "
+                SET status = :status
+                WHERE orderid = :orderid";
+      
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+      
+        // sanitize
+        $this->orderid=htmlspecialchars(strip_tags($this->orderid));
+        $this->status=htmlspecialchars(strip_tags($this->status));
+
+        // bind new values
+        $stmt->bindParam(':orderid', $this->orderid);
+        $stmt->bindParam(':status', $this->status);
+      
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }
+      
+        return false;
     }
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, X-Requested-With, Access-Control-Allow-Methods, Origin, Content-Type, X-Auth-Token");
 
 include_once('../config/Database.php');
 include_once('../models/User.php');
@@ -23,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if($result->rowCount() > 0) {
         $users = array();
-        $users['data'] = array();
     
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'created_at'      => $created_at
             );
     
-            array_push($users['data'], $item_arr);
+            array_push($users, $item_arr);
         }
     
         http_response_code(200);
@@ -49,5 +49,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         );
     }
 }
-
-?>

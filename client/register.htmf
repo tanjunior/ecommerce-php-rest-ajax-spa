@@ -1,5 +1,5 @@
 <div class="columns">
-    <form id="registerForm" name="registerForm" class="box column is-6 is-offset-3" onsubmit="return validateRegister('registerForm');">
+    <form id="registerForm" name="registerForm" class="box column is-6 is-offset-3" onsubmit="validateRegister(event);">
         <div class="field">
             <div class="control is-expanded has-icons-left">
                 <input class="input" name="name" type="text" placeholder="Name">

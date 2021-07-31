@@ -1,5 +1,5 @@
 <div class="columns">
-    <form id="loginForm" name="loginForm" class="box column is-6 is-offset-3" onsubmit="return validateLogin();">
+    <form id="loginForm" name="loginForm" class="box column is-6 is-offset-3" onsubmit="validateLogin(event);">
         <div class="field">
             <div class="control is-expanded has-icons-left">
                 <input class="input is-danger" name="email" type="email" placeholder="Email">

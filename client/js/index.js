@@ -1,4 +1,8 @@
+//my api does not work on ceto, something seems to be restricting it. 
+//api_request.js:34 POST http://ceto.murdoch.edu.au/~34309148/assignment2/server/api/user/login.php net::ERR_ABORTED 500 (Internal Server Error)
+
 const api_url = "../server/api/"
+
 var burger = document.querySelector('.burger');
 var menu = document.querySelector('#'+burger.dataset.target);
 burger.addEventListener('click', function() {
@@ -6,36 +10,27 @@ burger.addEventListener('click', function() {
     menu.classList.toggle('is-active');
 });
 
-function validateSearch() {
+async function validateSearch(e) {
+    e.preventDefault()
     let form = document.getElementById("searchForm")
     let formData = new FormData(form);
     let value = formData.get("keyword")
     if (value.length === 0) {
-        return false
+        return
     }
     
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState != 4) return false;
-        window.location.hash = "search";
-        let result = JSON.parse(xhr.responseText);
-        let items = result.data
-        let html = ""
-        items.forEach(item => {
-            html = html + "<tr class='box columns is-vcentered tableRow' onclick='generateItemPage("
-            +item.id+")'><td class='column is-2'><img src=../server/images/"
-            +item.imagename+ " alt='" 
-            +item.name+ "'></td><td class='column is-2'>"
-            +item.name+ "</td><td class='column is-6'>"
-            +item.description+ "</td><td class='column is-2'>"
-            +item.price+ "</td></tr>"
-                
-        });
-        $("#searchResults").html(html)
-    }
-    xhr.open("GET", api_url+"item?type=keyword&value="+value, true)
-    xhr.send()
-    return false
+    let items = await getItem({"type":"keyword", "value": value})
+    let html = ""
+    items.data.forEach(item => {
+        html = html + "<tr class='columns' onclick='generateItemPage("+item.itemid+")'>"+
+        "<td class='column is-1'><img src='../server/images/"+item.imagename+ "' alt='" +item.name+ "'></td>"+
+        "<td class='column is-3'>"+item.name+ "</td>"+
+        "<td class='column is-6'>"+item.description+ "</td>"+
+        "<td class='column is-2'>"+item.price+ "</td></tr>"
+            
+    });
+    $("#searchResults").html(html)
+    window.location.hash = "search";
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -67,8 +62,7 @@ function getCookie(name) {
 
 function checkCookie() {
     let user = getCookie("user");
-    
-    if (user != "") {
+    if (user != "" || user == null) {
         swapButtonGroup(true)
     } else {
         swapButtonGroup(false)
@@ -111,4 +105,3 @@ function logout() {
     $("#adminCols").html(""); //remove innerhtml of admin section to prevent naughty people from doing bad things
 }
 
-checkCookie();

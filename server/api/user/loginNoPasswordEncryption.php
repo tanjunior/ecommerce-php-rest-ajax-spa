@@ -29,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $user->login();
     if ($result->rowCount() == 1) {
         if ($row = $result->fetch()) {
-            $hashed_password = $row["password"];
-            if (password_verify($password, $hashed_password)) {
+            if ($password == $row["password"]) {
                 http_response_code(200);
                 echo json_encode(
                     array(

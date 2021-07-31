@@ -1,5 +1,6 @@
 // instantiate templates that are to be loaded on some sections
 const templates = {
+    "#home": "home.htmf",
     "#register":"register.htmf",
     "#login":"login.htmf"
 };
@@ -46,8 +47,8 @@ async function showPage(page) {
             break;
         case "#admin":
             // await user info from db to determine if user have staff priviledges
-            let user = await getUser(getCookie("user"), true)
-            if (user.role == "staff") {
+            let user = await getUser({"id": getCookie("user")})
+            if (user.data[0].role == "staff") {
                 // is staff, write admin contents into admin section using AJAX
                 displayAdminPage();
             } else {
@@ -76,48 +77,8 @@ async function showPage(page) {
 
 const loadData = function(page) {
 
-    //console.log("Loading "+templates[page]+" into page "+page+".");
-
-    //use JQuery to make a GET request for...
-    $.get(
-
-        //...the file specified by templates for this page...
-        templates[page],
-
-        //...and when done, call onDataLoaded.
-        (data)=>onDataLoaded(page, data)
-    );
-
-    
+    $.get(templates[page], function(data) {
+        $(page).html(data);
+        delete templates[page];
+    })
 }
-
-const onDataLoaded = function(page, data) {
-
-    //Just load the data directly into the page...
-    $(page).html(data);
-
-    //...and remove the page from templates so it will not load again.
-    delete templates[page];
-}
-
-// Using jQuery, bind the init function to the document's ready event
-// so that it will run when the document is ready.
-$(document).ready(init);
-
-/*
-//The following code shows how to use pure JS to make and respond to an AJAX call.
-//It is presented for your interest and study, but is not actually used in this page.
-
-const loadDataPureJS = function(page) {
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = ()=>{ onStateChange(request, page); }
-    request.open("GET",template [page]);
-    request.send(null);
-}
-
-const onStateChange = function(req, page) {
-    if ((req.readyState != 4) || (req.status != 200)) return;
-    document.getElementById(page.substring(1)).innerHTML = req.responseText;    
-    delete template [page];
-}
-*/

@@ -11,12 +11,17 @@ $db = $database->connect();
 
 $item = new Item($db);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['id']) && $_GET['id'] != null) {
-        $result = $item->readOne($_GET['id']);
-    } else {
-        $result = $item->read();    
+    if (!isset($_GET['type']) && !isset($_GET['value'])) {
+        http_response_code(400);
+        echo json_encode(
+            array(
+                'message' => 'No data found'
+            )
+        );
+        die();
     }
 
+    $result = $item->search($_GET['type'], $_GET['value']);
     if($result->rowCount() > 0) {
         $items = array();
     
@@ -24,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             extract($row);
     
             $item_arr = array(
-                'id'            => $ItemID,
+                'itemid'        => $ItemID,
                 'name'          => $Name,
                 'capacity'      => $Capacity,
                 'color'         => $Color,
@@ -46,41 +51,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             array('message' => 'No item found')
         );
     }
-} else if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
-    $data = json_decode(file_get_contents("php://input"));
-    if (empty($data->itemid) || empty($data->name) || empty($data->category) || empty($data->price) || empty($data->description)) {
-        http_response_code(400);
-        echo json_encode(
-            array(
-                'message' => 'No data found'
-            )
-        );
-        die();
-    }
-
-    $item->itemId = $data->itemid;
-    $item->name = $data->name;
-    $item->category = $data->category;
-    $item->price = $data->price;
-    $item->description = $data->description;
-
-    if($item->update()) {
-  
-        // set response code - 200 ok
-        http_response_code(200);
-      
-        // tell the item
-        echo json_encode(array("message" => "Item was updated."));
-    }
-      
-    // if unable to update the product, tell the item
-    else{
-      
-        // set response code - 503 service unavailable
-        http_response_code(503);
-      
-        // tell the item
-        echo json_encode(array("message" => "Unable to update Item."));
-    }
 }
-

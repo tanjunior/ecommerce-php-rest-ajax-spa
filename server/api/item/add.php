@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: multipart/form-data");
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, X-Requested-With, Access-Control-Allow-Methods, Origin, Content-Type, X-Auth-Token");
 
 include_once('../config/Database.php');
 include_once('../models/item.php');
@@ -31,8 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $target_dir = "../../images/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     $check = getimagesize($_FILES["image"]["tmp_name"]);
 
     if($check == false) {
@@ -86,4 +85,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 }
-
