@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
         die();
     }
 
-    $user->id = $data->id;
+    $user->userid = $data->id;
     $user->name = $data->name;
     $user->email = $data->email;
 

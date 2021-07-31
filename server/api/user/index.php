@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             extract($row);
     
             $item_arr = array(
-                'id'            => $id,
+                'id'            => $userid,
                 'name'          => $name,
                 'email'      => $email,
                 'role'         => $role,

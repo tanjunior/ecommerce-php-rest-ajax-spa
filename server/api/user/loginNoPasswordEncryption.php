@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 http_response_code(200);
                 echo json_encode(
                     array(
-                        'message' => $row['id']
+                        'message' => $row['userid']
                     )
                 );
             } else {

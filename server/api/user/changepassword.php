@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
         die();
     }
 
-    $user->id = (int)$data->id;
+    $user->userid = (int)$data->id;
 
     if($user->changePassword($data->current, $data->password)) {
   

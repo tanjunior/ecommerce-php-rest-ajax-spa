@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(201);
         echo json_encode(
             array(
-                'message' => $user->id
+                'message' => $user->userid
             )
         );
     } else {

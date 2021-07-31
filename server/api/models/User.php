@@ -3,7 +3,7 @@ class User{
     private $conn;
     private $table = 'users';
 
-    public $id;
+    public $userid;
     public $name;
     public $email;
     public $password;
@@ -41,7 +41,7 @@ class User{
         
 
         if ($statement->execute()) {
-            $this->id = $this->conn->lastInsertId();
+            $this->userid = $this->conn->lastInsertId();
             return true;
         }
 
@@ -50,7 +50,7 @@ class User{
     }
 
     public function login() {
-        $query = 'SELECT id, email, password FROM ' .$this->table.' WHERE email = :email';
+        $query = 'SELECT userid, email, password FROM ' .$this->table.' WHERE email = :email';
         $statement = $this->conn->prepare($query);
         $statement->bindParam(':email', $this->email);
 
@@ -70,7 +70,7 @@ class User{
     }
 
     public function readOne($ID) {
-        $query = 'SELECT * FROM ' .$this->table. ' WHERE id = ' .$ID. ';';
+        $query = 'SELECT * FROM ' .$this->table. ' WHERE userid = ' .$ID. ';';
 
         $statement = $this->conn->prepare($query);
 
@@ -117,35 +117,35 @@ class User{
             // update query
             $query = "UPDATE " . $this->table . "
                     SET name = :name, email = :email
-                    WHERE id = :id";
+                    WHERE userid = :userid";
                     // prepare query statement
             $stmt = $this->conn->prepare($query);
         
             // sanitize
             $this->name=htmlspecialchars(strip_tags($this->name));
             $this->email=htmlspecialchars(strip_tags($this->email));
-            $this->id=htmlspecialchars(strip_tags($this->id));
+            $this->userid=htmlspecialchars(strip_tags($this->userid));
             $stmt->bindParam(':name', $this->name);
             $stmt->bindParam(':email', $this->email);
-            $stmt->bindParam(':id', $this->id);
+            $stmt->bindParam(':id', $this->userid);
         } else {
             // update query
             $query = "UPDATE " . $this->table . "
                     SET name = :name, email = :email, role = :role
-                    WHERE id = :id";
+                    WHERE userid = :userid";
                     // prepare query statement
             $stmt = $this->conn->prepare($query);
         
             // sanitize
             $this->name=htmlspecialchars(strip_tags($this->name));
             $this->email=htmlspecialchars(strip_tags($this->email));
-            $this->id=htmlspecialchars(strip_tags($this->id));
+            $this->userid=htmlspecialchars(strip_tags($this->userid));
             $this->role=htmlspecialchars(strip_tags($this->role));
         
             // bind new values
             $stmt->bindParam(':name', $this->name);
             $stmt->bindParam(':email', $this->email);
-            $stmt->bindParam(':id', $this->id);
+            $stmt->bindParam(':userid', $this->userid);
             $stmt->bindParam(':role', $this->role);
         }
       
@@ -161,10 +161,10 @@ class User{
 
     function changePassword($currentPassword, $newPassword) {
         
-        $query = 'SELECT password FROM ' .$this->table.' WHERE id = :id LIMIT 0,1';
+        $query = 'SELECT password FROM ' .$this->table.' WHERE userid = :userid LIMIT 0,1';
         $statement = $this->conn->prepare($query);
-        $this->id=htmlspecialchars(strip_tags($this->id));
-        $statement->bindParam(':id', $this->id);
+        $this->userid=htmlspecialchars(strip_tags($this->userid));
+        $statement->bindParam(':userid', $this->userid);
 
         $statement->execute();
         $num = $statement->rowCount();
@@ -176,9 +176,9 @@ class User{
                 // update query
                 $query = "UPDATE " . $this->table . "
                         SET password = :password
-                        WHERE id = :id";
+                        WHERE userid = :userid";
                 $statement = $this->conn->prepare($query);
-                $statement->bindParam(':id', $this->id);
+                $statement->bindParam(':userid', $this->userid);
                 $statement->bindParam(':password', $this->password);
       
                 if ($statement->execute()) {
