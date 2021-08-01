@@ -20,14 +20,28 @@ CREATE TABLE `items` (
 );
 
 
-CREATE TABLE `orders` (
-  `orderid` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `userid` int(11) NOT NULL,
-  `items` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`items`)),
-  `price` int(11) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp(),
-  CONSTRAINT `fk_order_user` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`)
+CREATE TABLE carts (
+    cartid int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    userid int(11) NOT NULL,
+    CONSTRAINT fk_carts_user FOREIGN KEY (userid) REFERENCES users (userid)
+);
+
+CREATE TABLE cart_items (
+    cartid int(11) NOT NULL,
+    itemid int(11) NOT NULL,
+    CONSTRAINT fk_cart_items_cart FOREIGN KEY (cartid) REFERENCES carts (cartid),
+    CONSTRAINT fk_cart_items_item FOREIGN KEY (itemid) REFERENCES items (itemid),
+    CONSTRAINT pk_cart_items_item PRIMARY KEY (cartid, itemid)
+);
+
+CREATE TABLE orders (
+    orderid int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    userid int(11) NOT NULL,
+    cartid int(11) NOT NULL,
+    price int(11) NOT NULL, status varchar(20) NOT NULL,
+    date datetime NOT NULL DEFAULT current_timestamp(),
+    CONSTRAINT fk_order_user FOREIGN KEY (userid) REFERENCES users (userid),
+    CONSTRAINT fk_order_cart FOREIGN KEY (cartid) REFERENCES carts (cartid)
 );
 
 INSERT INTO `items` (`Name`, `Description`, `Price`, `Category`, `ImageName`) VALUES
